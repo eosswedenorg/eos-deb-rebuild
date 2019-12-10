@@ -1,0 +1,5 @@
+Package: bos
+Conflicts: eosio, wax
+Description: Software for the BOS network
+Homepage: https://github.com/boscore/bos
+Maintainer: support@boscore.io
