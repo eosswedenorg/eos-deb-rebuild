@@ -15,11 +15,11 @@ uninstall :
 
 # Files
 $(INSTALLDIR)/% : %
-	mkdir -p $(dir $@) && cat $< > $@
+	mkdir -p $(dir $@) && cp $< $@
 
 # Binaries
 $(INSTALLDIR)/bin/% : bin/%.sh
-	mkdir -p $(dir $@) && cat $< > $@ && chmod +x $@
+	mkdir -p $(dir $@) && cp $< $@ && chmod +x $@
 
 # Symlinks to binaries
 $(PREFIX)/bin/% : $(INSTALLDIR)/bin/%
