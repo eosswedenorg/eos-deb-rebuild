@@ -11,6 +11,7 @@ VERBOSE=0
 INPUT_FILE=
 PKG_TYPE=standard
 PKG_FLAVOR=eos
+PKG_VERSION=
 
 comment() {
 	echo -e "\e[34m ::\e[0m" $@
@@ -26,7 +27,7 @@ warning() {
 }
 
 usage() {
-	echo "usage ${PROGRAM} [ -v ] [ <pkg-spec> ] <file>"
+	echo "usage ${PROGRAM} [ -v ] [ -R <number> ] [ <pkg-spec> ] <file>"
 
 	echo    ""
 	echo -e "  Default pkg-spec: \e[33m${PKG_FLAVOR}:${PKG_TYPE}\e[0m"
@@ -45,10 +46,16 @@ usage() {
 
 parse_args() {
 
-	while getopts ":v" opt; do
+	while getopts ":vR:" opt; do
 	  case ${opt} in
 		v )
 		  VERBOSE=1
+		  ;;
+		R )
+		  PKG_VERSION="$OPTARG"
+		  ;;
+		:  )
+		  error "Missing value for option '-$OPTARG'"
 		  ;;
 		\? )
 		  warning "Unrecognized option '$OPTARG'"
@@ -93,6 +100,9 @@ parse_args() {
 		echo "Flavor:" $PKG_FLAVOR
 		echo "Type:" $PKG_TYPE
 		echo "File:" $INPUT_FILE
+		if [ ! -z "${PKG_VERSION}" ]; then
+			echo "Package Version:" $PKG_VERSION
+		fi
 	fi
 }
 
@@ -122,8 +132,15 @@ program() {
 		done
 	fi
 
-	# Get package name
+	# Get package name and version
 	PACKAGE=$(awk -F ':' '/Package/{print $2}' ${CONTROL_FILE} | tr -d '[:space:]')
+	VERSION=$(awk -F ':' '/Version/{print $2}' ${CONTROL_FILE} | tr -d '[:space:]')
+
+	# Update version if package version is defined.
+	if [ ! -z "$PKG_VERSION" ]; then
+		VERSION=$(echo $VERSION | sed -E "s/-[0-9]+\$/-$PKG_VERSION/g")
+		sed -i -E "s/^(Version:)\s(.*)\$/\1 ${VERSION}/" ${CONTROL_FILE}
+	fi
 
 	if [ -x "$INCLUDE_DIR/scripts/$PKG_TYPE.sh" ]; then
 		comment "Execute script:" "$PKG_TYPE.sh"
@@ -131,7 +148,7 @@ program() {
 	fi
 
 	# Build package
-	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z]+)/$PACKAGE/")
+	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z]+)_([^-]+)-([^-_]+)/${PACKAGE}_${VERSION}/")
 	fakeroot dpkg-deb -b ${TMP_DIR} ${OUTPUT_FILE}
 	rm -fr ${TMP_DIR}
 
