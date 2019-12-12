@@ -27,10 +27,14 @@ warning() {
 }
 
 usage() {
-	echo "usage ${PROGRAM} [ -v ] [ -R <number> ] [ <pkg-spec> ] <file>"
+	echo "usage ${PROGRAM} [ OPTIONS ] [ <pkg-spec> ] <file>"
 
+	echo -e "  \e[34mOptions:\e[0m"
+	echo -e "   -v\t\tVerbose Output"
+	echo -e "   -R <number>\tPackage release number"
 	echo    ""
-	echo -e "  Default pkg-spec: \e[33m${PKG_FLAVOR}:${PKG_TYPE}\e[0m"
+	echo -e "  \e[34mpkg-spec:\e[0m"
+	echo -e "  Default: \e[33m${PKG_FLAVOR}:${PKG_TYPE}\e[0m"
 	echo -e "  Package specification follows the format \e[33m'<flavor>:<type>'\e[0m"
 	echo    "  If the ':' delimiter is not there, the program will guess if the string is flavor or type."
 	echo    ""
