@@ -3,7 +3,7 @@
 # Multiversion specific commands.
 
 # Fetch and format mv version (remove "." and skip last "-<number>" e.g. package version)
-MV_VERSION=$(awk -F ':' '/Version/{print $2}' ${CONTROL_FILE} | sed -E 's/\s|\.|\-[0-9]+$//g')
+MV_VERSION=$(echo $VERSION | sed -E 's/\s|\.|\-[0-9]+$//g')
 
 comment "Update package name in control file ($PACKAGE-mv-${MV_VERSION})"
 sed -i -E "s/^(Package:)\s([a-z]+)$/\1 \2-mv-${MV_VERSION}/" ${CONTROL_FILE}
