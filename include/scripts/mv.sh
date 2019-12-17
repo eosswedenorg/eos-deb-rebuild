@@ -8,6 +8,9 @@ MV_VERSION=$(echo $VERSION | sed -E 's/\s|\.|\-[0-9]+$//g')
 comment "Update package name in control file ($PACKAGE-mv-${MV_VERSION})"
 sed -i -E "s/^(Package:)\s([a-z]+)$/\1 \2-mv-${MV_VERSION}/" ${CONTROL_FILE}
 
+# Remove conflicts
+sed -i "/^Conflicts:/d" ${CONTROL_FILE}
+
 # Remove usr/bin
 # original deb packages install symlinks here and will therefor produce conflicts.
 comment "Remove usr/bin"
