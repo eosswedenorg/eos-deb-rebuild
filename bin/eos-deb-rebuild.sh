@@ -148,8 +148,10 @@ program() {
 	fi
 
 	if [ -x "$INCLUDE_DIR/scripts/$PKG_TYPE.sh" ]; then
-		comment "Execute script:" "$PKG_TYPE.sh"
+		comment "Execute script:" "$PKG_TYPE"
+		COMMENT_PREFIX=$PKG_TYPE
 		. "$INCLUDE_DIR/scripts/$PKG_TYPE.sh"
+		unset COMMENT_PREFIX
 	fi
 
 	# Build package
