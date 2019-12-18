@@ -14,7 +14,8 @@ PKG_FLAVOR=eos
 PKG_VERSION=
 
 comment() {
-	echo -e "\e[34m ::\e[0m" $@
+	local prefix=${COMMENT_PREFIX:-::}
+	echo -e " \e[34m[\e[0m$prefix\e[34m]\e[0m" $@
 }
 
 error() {
