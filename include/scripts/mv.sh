@@ -9,6 +9,7 @@ comment "Update package name in control file ($PACKAGE-mv-${MV_VERSION})"
 sed -i -E "s/^(Package:)\s([a-z]+)$/\1 \2-mv-${MV_VERSION}/" ${CONTROL_FILE}
 
 # Remove conflicts
+comment "Remove conflicts field in control file"
 sed -i "/^Conflicts:/d" ${CONTROL_FILE}
 
 # Remove usr/bin
