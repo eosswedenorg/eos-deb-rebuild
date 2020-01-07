@@ -20,6 +20,8 @@ First there is package `type`:
 
 * `mv` - Create a eosio *multiversion* package (supports multiple versions to co-exists on a machine.)
 
+* `cdt-mv` - Create a eosio.cdt *multiversion* package (supports multiple versions to co-exists on a machine.)
+
 On top of this, it is possible to select a `flavor`. Flavors are basicly what type of chain of EOS to package for. (Alot of side-chains do not update their info in the original package)
 The following flavors are supported:
 
