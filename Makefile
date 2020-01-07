@@ -3,11 +3,12 @@ NAME 		= eos-deb-rebuild
 PREFIX 		= /usr
 INSTALLDIR 	= $(PREFIX)/opt/$(NAME)
 PROGRAMS 	= $(patsubst %.sh,%,$(shell find bin -type f))
-FILES 		= $(addprefix $(INSTALLDIR)/,README.md LICENSE $(shell find include -type f))
+FILES	    = README.md LICENSE $(shell find include -type f)
+EXTRAFILES  = $(addprefix $(INSTALLDIR)/,$(FILES))
 BINFILES  	= $(addprefix $(INSTALLDIR)/,$(PROGRAMS))
 SYMLINKS  	= $(addprefix $(PREFIX)/,$(PROGRAMS))
 
-install : $(FILES) $(BINFILES) $(SYMLINKS)
+install : $(BINFILES) $(EXTRAFILES) $(SYMLINKS)
 
 uninstall :
 	rm $(SYMLINKS)
@@ -25,4 +26,13 @@ $(INSTALLDIR)/bin/% : bin/%.sh
 $(PREFIX)/bin/% : $(INSTALLDIR)/bin/%
 	mkdir -p $(dir $@) && ln -sf $(subst $(PREFIX)/,../,$<) $@
 
-.PHONY: install uninstall
+deb:
+	export PACKAGE_NAME="$(NAME)" \
+	export PACKAGE_VERSION="0.1.0" \
+	export PACKAGE_PREFIX=$(PREFIX:/%=%) \
+	export PACKAGE_PROGRAM=$(PROGRAMS) \
+	export PACKAGE_FILES="$(FILES)" \
+	export PACKAGE_INSTALLDIR=$(INSTALLDIR:/%=%) \
+	&& ./scripts/build_deb.sh
+
+.PHONY: install uninstall deb
