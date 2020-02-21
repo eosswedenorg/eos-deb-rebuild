@@ -1,0 +1,5 @@
+Package: uos
+Conflicts: eosio, bos, wax, daobet
+Description: Software for the UOS network
+Homepage: https://github.com/UOSnetwork
+Maintainer: hello@uos.network
