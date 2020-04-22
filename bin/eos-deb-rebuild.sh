@@ -14,6 +14,8 @@ PKG_TYPE=standard
 PKG_FLAVOR=eos
 PKG_VERSION=
 
+source "${INCLUDE_DIR}/deb_filename.sh"
+
 comment() {
 	local prefix=${COMMENT_PREFIX:-::}
 	echo -e " \e[34m[\e[0m$prefix\e[34m]\e[0m" $@
@@ -157,6 +159,7 @@ program() {
 
 	comment "Build package"
 	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z\.]+)_([^-]+)-([^-_]+)/${PACKAGE}_${VERSION}/")
+	OUTPUT_FILE=$(deb_filename "${OUTPUT_FILE}")
 	fakeroot dpkg-deb -b ${TMP_DIR} ${OUTPUT_FILE}
 	rm -fr ${TMP_DIR}
 
