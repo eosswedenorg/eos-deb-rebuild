@@ -6,6 +6,7 @@ PROGRAM="${0##*/}"
 SELF="$(readlink -f "${BASH_SOURCE[0]}")"
 TMP_DIR="tmp"
 INCLUDE_DIR="$(realpath "$(dirname $SELF)/../")/include"
+PLUGINS_DIR="$INCLUDE_DIR/plugins"
 CONTROL_FILE="${TMP_DIR}/DEBIAN/control"
 VERBOSE=0
 INPUT_FILE=
@@ -40,7 +41,7 @@ usage() {
 	echo    "  If the ':' delimiter is not there, the program will guess if the string is flavor or type."
 	echo    ""
 	echo -e "  Flavors are:" $(ls $INCLUDE_DIR/control | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
-	echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $INCLUDE_DIR/scripts | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
+	echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $PLUGINS_DIR | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo    ""
 	echo -e "  Example: \e[33m'bos-mv'\e[0m - builds bos multiversion package"
 	echo -e "           \e[33m'wax'\e[0m - builds standard wax package"
@@ -79,7 +80,7 @@ parse_args() {
 			PKG_FLAVOR=$(cut -d':' -f1 <<<$in)
 			PKG_TYPE=$(cut -d':' -f2 <<<$in)
 		# Guess that it's a type
-		elif [ -f "$INCLUDE_DIR/scripts/$in.sh" ]; then
+	elif [ -f "${PLUGINS_DIR}/$in.sh" ]; then
 			PKG_TYPE="$in"
 		# Other
 		else :
@@ -88,7 +89,7 @@ parse_args() {
 
 		# Validate
 		if [  ! -f "$INCLUDE_DIR/control/$PKG_FLAVOR" ] \
-		|| [[ ! -f "$INCLUDE_DIR/scripts/$PKG_TYPE.sh" && $PKG_TYPE != "standard" ]]; then
+		|| [[ ! -f "${PLUGINS_DIR}/$PKG_TYPE.sh" && $PKG_TYPE != "standard" ]]; then
 			error "Invalid type: '$in'"
 		fi
 
@@ -147,10 +148,10 @@ program() {
 		sed -i -E "s/^(Version:)\s(.*)\$/\1 ${VERSION}/" ${CONTROL_FILE}
 	fi
 
-	if [ -x "$INCLUDE_DIR/scripts/$PKG_TYPE.sh" ]; then
-		comment "Execute script:" "$PKG_TYPE"
+	if [ -x "${PLUGINS_DIR}/$PKG_TYPE.sh" ]; then
+		comment "Execute plugin:" "$PKG_TYPE"
 		COMMENT_PREFIX=$PKG_TYPE
-		. "$INCLUDE_DIR/scripts/$PKG_TYPE.sh"
+		. "${PLUGINS_DIR}/$PKG_TYPE.sh"
 		unset COMMENT_PREFIX
 	fi
 
