@@ -4,6 +4,8 @@
 
 PROGRAM="${0##*/}"
 SELF="$(readlink -f "${BASH_SOURCE[0]}")"
+SHARE_DIR="/usr/local/share/eos-deb-rebuild"
+INFO_DIR="${SHARE_DIR}/info"
 TMP_DIR="tmp"
 INCLUDE_DIR="$(realpath "$(dirname $SELF)/../")/include"
 PLUGINS_DIR="$INCLUDE_DIR/plugins"
@@ -42,7 +44,7 @@ usage() {
 	echo -e "  Package specification follows the format \e[33m'<flavor>:<type>'\e[0m"
 	echo    "  If the ':' delimiter is not there, the program will guess if the string is flavor or type."
 	echo    ""
-	echo -e "  Flavors are:" $(ls $INCLUDE_DIR/control | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
+	echo -e "  Flavors are:" $(ls ${INFO_DIR} | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $PLUGINS_DIR | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo    ""
 	echo -e "  Example: \e[33m'bos-mv'\e[0m - builds bos multiversion package"
@@ -90,7 +92,7 @@ parse_args() {
 		fi
 
 		# Validate
-		if [  ! -f "$INCLUDE_DIR/control/$PKG_FLAVOR" ] \
+		if [  ! -f "${INFO_DIR}/$PKG_FLAVOR" ] \
 		|| [[ ! -f "${PLUGINS_DIR}/$PKG_TYPE.sh" && $PKG_TYPE != "standard" ]]; then
 			error "Invalid type: '$in'"
 		fi
@@ -124,14 +126,14 @@ program() {
 	dpkg-deb -x $INPUT_FILE ${TMP_DIR}
 
 	# Patch control file.
-	if [ -f "$INCLUDE_DIR/control/$PKG_FLAVOR" ]; then
+	if [ -f "${INFO_DIR}/$PKG_FLAVOR" ]; then
 		declare -A array
 
 		while read -r l; do
 			K=$(cut -d':' -f1 <<<$l)
 			V=$(cut -d':' -f2- <<<$l | xargs)
 			array[$K]="$V"
-		done <<< $(dpkg-deb -f $INPUT_FILE | cat - "$INCLUDE_DIR/control/$PKG_FLAVOR")
+		done <<< $(dpkg-deb -f $INPUT_FILE | cat - "${INFO_DIR}/$PKG_FLAVOR")
 
 		mkdir -p $(dirname "${CONTROL_FILE}")
 		for k in $(cat $INCLUDE_DIR/control_order); do
