@@ -63,3 +63,6 @@ eosio_1.8.4-1-ubuntu-18.04_amd64.deb
 wax_1.8.4-1-ubuntu-18.04_amd64.deb
 wax-mv-184_1.8.4-1-ubuntu-18.04_amd64.deb
 ```
+## Author
+
+Henrik Hautakoski - [henrik@eossweden.org](mailto:henrik@eossweden.org)
