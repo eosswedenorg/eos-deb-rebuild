@@ -6,6 +6,8 @@ This repository contains scripts used to rebuild debian packages created from [e
 
 This project uses `make` to install files on a system.
 
+You will also need to install [eos-deb-rebuild-info](https://github.com/eosswedenorg/eos-deb-rebuild-info)
+
 run `sudo make install` and you should be able to execute the `eos-deb-rebuild` command after.
 
 Run `sudo make uninstall` to remove.
@@ -23,13 +25,8 @@ First there is package `type`:
 * `cdt-mv` - Create a eosio.cdt *multiversion* package (supports multiple versions to co-exists on a machine.)
 
 On top of this, it is possible to select a `flavor`. Flavors are basicly what type of chain of EOS to package for. (Alot of side-chains do not update their info in the original package)
-The following flavors are supported:
 
-* `eos` (*default*) - EOS Mainnet - [ [Node software](https://github.com/eosio/eos), [Contract Development Toolkit](https://github.com/eosio/eosio.cdt) ]
-
-* `bos` - BOS Core Chain - [ [Node software](https://github.com/boscore/bos), [Contract Development Toolkit](https://github.com/boscore/bos.cdt) ]
-
-* `wax` - Worldwide Asset eXchange Chain - [ [Node software](https://github.com/worldwide-asset-exchange/wax-blockchain), [Contract Development Toolkit](https://github.com/worldwide-asset-exchange/wax-cdt) ]
+A list of supported flavors can be found in [eos-deb-rebuild-info](https://github.com/eosswedenorg/eos-deb-rebuild-info)
 
 run `eos-deb-rebuild` without any arguments to see what flags and arguments can be used.
 
