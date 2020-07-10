@@ -16,22 +16,9 @@ PKG_TYPE=standard
 PKG_FLAVOR=
 PKG_VERSION=
 
+source "${INCLUDE_DIR}/log.sh"
 source "${INCLUDE_DIR}/deb_filename.sh"
 source "${INCLUDE_DIR}/guess_pkg_flavor.sh"
-
-comment() {
-	local prefix=${COMMENT_PREFIX:-::}
-	echo -e " \e[34m[\e[0m$prefix\e[34m]\e[0m" $@
-}
-
-error() {
-	echo -e "\e[31mError\e[0m:" $@ 1>&2
-	exit 1
-}
-
-warning() {
-	echo -e "\e[33mWarning\e[0m:" $@ 1>&2
-}
 
 usage() {
 	echo "usage ${PROGRAM} [ OPTIONS ] [ <pkg-spec> ] <file>"
