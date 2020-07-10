@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Guess flavor from .deb's Package-field.
+#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#
+#  Guess flavor from .deb's Package-field.
 
 # arg1: filename
 function guess_pkg_flavor() {

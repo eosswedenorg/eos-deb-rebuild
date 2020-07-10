@@ -1,6 +1,8 @@
 #!/bin/sh
 #
-# Basic logging functions.
+#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#
+#  Basic logging functions.
 
 comment() {
 	local prefix=${COMMENT_PREFIX:-::}

@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Correct .deb filenames
+#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#
+#  Correct .deb filenames
 
 # arg1: filename
 function deb_filename() {
