@@ -13,10 +13,11 @@ CONTROL_FILE="${TMP_DIR}/DEBIAN/control"
 VERBOSE=0
 INPUT_FILE=
 PKG_TYPE=standard
-PKG_FLAVOR=eos
+PKG_FLAVOR=
 PKG_VERSION=
 
 source "${INCLUDE_DIR}/deb_filename.sh"
+source "${INCLUDE_DIR}/guess_pkg_flavor.sh"
 
 comment() {
 	local prefix=${COMMENT_PREFIX:-::}
@@ -104,6 +105,11 @@ parse_args() {
 	[ $# -eq 0 ] && usage
 
 	INPUT_FILE="$1"
+
+	# Guess flavor from input file if empty.
+	if [ -z "$PKG_FLAVOR" ]; then
+		PKG_FLAVOR=$(guess_pkg_flavor "$INPUT_FILE")
+	fi
 
 	if [ ${VERBOSE} -gt 0 ]; then
 		echo "--- Build variables ---"
