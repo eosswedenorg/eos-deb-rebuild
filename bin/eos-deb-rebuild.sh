@@ -41,9 +41,11 @@ usage() {
 	echo -e "   -R <number>\tPackage release number"
 	echo    ""
 	echo -e "  \e[34mpkg-spec:\e[0m"
-	echo -e "  Default: \e[33m${PKG_FLAVOR}:${PKG_TYPE}\e[0m"
 	echo -e "  Package specification follows the format \e[33m'<flavor>:<type>'\e[0m"
 	echo    "  If the ':' delimiter is not there, the program will guess if the string is flavor or type."
+	echo    ""
+	echo -e "  If \e[33m<flavor>\e[0m is omitted its taken from the deb file's \`Package\` field. Defaults to \`eos\` if that fails."
+	echo -e "  Default \e[33m<type>\e[0m is \`${PKG_TYPE}\`"
 	echo    ""
 	echo -e "  Flavors are:" $(ls ${INFO_DIR} | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $PLUGINS_DIR | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
