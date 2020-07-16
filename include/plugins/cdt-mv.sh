@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# CDT Multiversion specific commands
+#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#
+#  CDT Multiversion specific commands
 
 # Fetch and format mv version (only keep major and minor
 local MV_VERSION=$(echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*/\1/')

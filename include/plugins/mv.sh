@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Multiversion specific commands.
+#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#
+#  Multiversion specific commands.
 
 # Fetch and format mv version (remove "." and skip last "-<number>" e.g. package version)
 MV_VERSION=$(echo $VERSION | sed -E 's/\s|\.|\-[0-9]+$//g')
