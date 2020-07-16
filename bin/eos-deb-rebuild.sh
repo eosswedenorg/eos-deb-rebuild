@@ -74,7 +74,7 @@ parse_args() {
 			PKG_FLAVOR=$(cut -d':' -f1 <<<$in)
 			PKG_TYPE=$(cut -d':' -f2 <<<$in)
 		# Guess that it's a type
-	elif [ -f "${PLUGINS_DIR}/$in.sh" ]; then
+		elif [ -f "${PLUGINS_DIR}/$in.sh" ]; then
 			PKG_TYPE="$in"
 		# Other
 		else :
