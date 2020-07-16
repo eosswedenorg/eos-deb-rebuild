@@ -121,6 +121,7 @@ program() {
 	dpkg-deb -x $INPUT_FILE ${TMP_DIR}
 
 	# Patch control file.
+	mkdir -p $(dirname "${CONTROL_FILE}")
 	if [ -f "${INFO_DIR}/$PKG_FLAVOR" ]; then
 		declare -A array
 
@@ -130,11 +131,13 @@ program() {
 			array[$K]="$V"
 		done <<< $(dpkg-deb -f $INPUT_FILE | cat - "${INFO_DIR}/$PKG_FLAVOR")
 
-		mkdir -p $(dirname "${CONTROL_FILE}")
 		for k in $(cat $INCLUDE_DIR/control_order); do
 			v="${array[$k]}"
 			[[ ! -z $v ]] && echo "$k: $v" >> ${CONTROL_FILE}
 		done
+	# If no patching is needed, we still need to extract the control file.
+	else :
+		dpkg-deb -f $INPUT_FILE > ${CONTROL_FILE}
 	fi
 
 	# Get package name and version
