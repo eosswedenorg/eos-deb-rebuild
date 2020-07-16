@@ -82,7 +82,7 @@ parse_args() {
 		fi
 
 		# Validate
-		if [  ! -f "${INFO_DIR}/$PKG_FLAVOR" ] \
+		if [[ ! -z $PKG_FLAVOR  &&  ! -f "${INFO_DIR}/$PKG_FLAVOR" ]] \
 		|| [[ ! -f "${PLUGINS_DIR}/$PKG_TYPE.sh" && $PKG_TYPE != "standard" ]]; then
 			error "Invalid type: '$in'"
 		fi
