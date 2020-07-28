@@ -24,13 +24,13 @@ else :
 fi
 
 # rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
-local ORIG_PKGDIR=$(ls "${TMP_DIR}/usr/opt" | head -1)
+local ORIG_PKGDIR=$(ls "${TMP_DIR}/usr/opt/${PACKAGE}" | head -1)
 
 if [ -z ${ORIG_PKGDIR} ]; then
 	warning "Could not find anything in 'usr/opt/${ORIG_PKGDIR}'."
 else :
-	comment "Rename usr/opt/${ORIG_PKGDIR} to usr/opt/${PACKAGE}-${MV_VERSION}"
-	pushd ${TMP_DIR}/usr/opt > /dev/null
+	comment "Rename usr/opt/${PACKAGE} to usr/opt/${PACKAGE}-${MV_VERSION}"
+	pushd ${TMP_DIR}/usr/opt/${PACKAGE} > /dev/null
 	mv ${ORIG_PKGDIR} ${PACKAGE}-${MV_VERSION} 2> /dev/null
 	popd > /dev/null
 fi
