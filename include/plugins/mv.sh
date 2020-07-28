@@ -27,11 +27,12 @@ fi
 local ORIG_PKGDIR=$(ls "${TMP_DIR}/usr/opt/${PACKAGE}" | head -1)
 
 if [ -z ${ORIG_PKGDIR} ]; then
-	warning "Could not find anything in 'usr/opt/${ORIG_PKGDIR}'."
+	warning "Could not find anything in 'usr/opt/${PACKAGE}'."
 else :
-	comment "Rename usr/opt/${PACKAGE} to usr/opt/${PACKAGE}-${MV_VERSION}"
-	pushd ${TMP_DIR}/usr/opt/${PACKAGE} > /dev/null
-	mv ${ORIG_PKGDIR} ${PACKAGE}-${MV_VERSION} 2> /dev/null
+	comment "Rename usr/opt/${PACKAGE}/${ORIG_PKGDIR} to usr/opt/${PACKAGE}-${MV_VERSION}"
+	pushd ${TMP_DIR}/usr/opt > /dev/null
+	mv ${PACKAGE}/${ORIG_PKGDIR} ${PACKAGE}-${MV_VERSION} 2> /dev/null
+	rm -rf ${PACKAGE}
 	popd > /dev/null
 fi
 
