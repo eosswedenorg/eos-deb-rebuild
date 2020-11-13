@@ -23,16 +23,23 @@ else :
 	warning "'usr/bin' did not exist."
 fi
 
-# rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
-local ORIG_PKGDIR=$(ls "${TMP_DIR}/usr/opt/${PACKAGE}" | head -1)
+local ORIG_OPT_PATH=usr/opt/eosio
 
-if [ -z ${ORIG_PKGDIR} ]; then
-	warning "Could not find anything in 'usr/opt/${PACKAGE}'."
+# rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
+local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_OPT_PATH}" | head -1)
+
+if [ -z ${ORIG_VERDIR} ]; then
+	warning "Could not find anything in '${ORIG_OPT_PATH}'."
 else :
-	comment "Rename usr/opt/${PACKAGE}/${ORIG_PKGDIR} to usr/opt/${PACKAGE}-${MV_VERSION}"
-	pushd ${TMP_DIR}/usr/opt > /dev/null
-	mv ${PACKAGE}/${ORIG_PKGDIR} ${PACKAGE}-${MV_VERSION} 2> /dev/null
-	rm -rf ${PACKAGE}
+	local NEW_OPT_PATH=usr/opt/${PACKAGE}
+	comment "Rename ${ORIG_OPT_PATH}/${ORIG_VERDIR} to ${NEW_OPT_PATH}/${MV_VERSION}-mv"
+	pushd ${TMP_DIR} > /dev/null
+	mkdir -p "${NEW_OPT_PATH}"
+	mv ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv 2> /dev/null
+	if [ -z "$(ls -A ${ORIG_OPT_PATH})" ]; then
+		comment "${ORIG_OPT_PATH} is empty, removing."
+		rm -rf ${ORIG_OPT_PATH}
+	fi
 	popd > /dev/null
 fi
 
