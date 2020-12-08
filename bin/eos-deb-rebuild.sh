@@ -146,7 +146,7 @@ program() {
 
 	# Update version if package version is defined.
 	if [ ! -z "$PKG_VERSION" ]; then
-		VERSION=$(echo $VERSION | sed -E "s/-[0-9]+\$/-$PKG_VERSION/g")
+		VERSION=$(echo $VERSION | sed -E "s/(-[0-9]+)?\$/-$PKG_VERSION/g")
 		sed -i -E "s/^(Version:)\s(.*)\$/\1 ${VERSION}/" ${CONTROL_FILE}
 	fi
 
