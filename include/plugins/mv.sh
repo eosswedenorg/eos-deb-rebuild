@@ -23,7 +23,12 @@ else :
 	warning "'usr/bin' did not exist."
 fi
 
-local ORIG_OPT_PATH=usr/opt/eosio
+# Find package directory.
+if [ -d ${TMP_DIR}/usr/opt/${PACKAGE} ]; then
+	ORIG_OPT_PATH=usr/opt/${PACKAGE}
+else :
+	ORIG_OPT_PATH=usr/opt/eosio
+fi
 
 # rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
 local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_OPT_PATH}" 2> /dev/null | head -1)
