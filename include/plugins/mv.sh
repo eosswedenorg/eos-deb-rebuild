@@ -26,7 +26,7 @@ fi
 local ORIG_OPT_PATH=usr/opt/eosio
 
 # rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
-local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_OPT_PATH}" | head -1)
+local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_OPT_PATH}" 2> /dev/null | head -1)
 
 if [ -z ${ORIG_VERDIR} ]; then
 	warning "Could not find anything in '${ORIG_OPT_PATH}'."
