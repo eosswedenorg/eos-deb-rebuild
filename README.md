@@ -6,7 +6,7 @@ This repository contains scripts used to rebuild debian packages created from [e
 
 This project uses `make` to install files on a system.
 
-You will also need to install [eos-deb-rebuild-info](https://github.com/eosswedenorg/eos-deb-rebuild-info)
+You will also need to install [eos-deb-rebuild-info](https://github.com/eosswedenorg/eos-deb-rebuild-info) version `1.0.2` or greater.
 
 run `sudo make install` and you should be able to execute the `eos-deb-rebuild` command after.
 
