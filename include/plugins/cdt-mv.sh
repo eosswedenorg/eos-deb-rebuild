@@ -44,7 +44,7 @@ mv "${TMP_DIR}/usr/opt/eosio.cdt/${VERSION_DIR}" "${TMP_DIR}/usr/opt/eosio.cdt/$
 # Need to update cmake config with the new path.
 CMAKE_CONFIG="${TMP_DIR}/usr/opt/eosio.cdt/${MV_DIRECTORY}/lib/cmake/eosio.cdt/eosio.cdt-config.cmake"
 if [ -f "${CMAKE_CONFIG}" ]; then
-	comment "Patch cmake config (${CMAKE_CONFIG}) with correct path"
+	comment "Patch cmake config (${CMAKE_CONFIG}) with correct path (/usr/opt/eosio.cdt/${MV_DIRECTORY})"
 	sed -i -E "s~(set\(EOSIO_CDT_ROOT)\s*\"(.+)\"~\1 \"/usr/opt/eosio.cdt/${MV_DIRECTORY}\"~" ${CMAKE_CONFIG}
 fi
 
