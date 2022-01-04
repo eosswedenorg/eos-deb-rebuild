@@ -7,7 +7,7 @@
 # Fetch and format mv version (only keep major and minor
 local MV_VERSION=$(echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*/\1/')
 
-local type=$(echo ${PKG_FLAVOR} | sed 's/.cdt$//')
+local type=$(echo ${PACKAGE} | sed 's/.cdt$//')
 if [ ! -z "$type" ] && [ "$type" != "eos" ]; then
 	MV_VERSION="${type}-${MV_VERSION}"
 fi
