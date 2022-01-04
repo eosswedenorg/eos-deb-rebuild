@@ -119,6 +119,11 @@ program() {
 	rm -fr ${TMP_DIR}
 	dpkg-deb -x $INPUT_FILE ${TMP_DIR}
 
+	if [ $? -ne 0 ]; then
+		error "Failed to unpack archive"
+		exit 1
+	fi
+
 	# Patch control file.
 	mkdir -p $(dirname "${CONTROL_FILE}")
 	if [ -f "${INFO_DIR}/$PKG_FLAVOR" ]; then
