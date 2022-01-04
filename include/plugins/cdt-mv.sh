@@ -7,9 +7,12 @@
 # Fetch and format mv version (only keep major and minor
 local MV_VERSION=$(echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*/\1/')
 
-local type=$(echo ${PACKAGE} | sed 's/.cdt$//')
-if [ ! -z "$type" ] && [ "$type" != "eos" ]; then
-	MV_VERSION="${type}-${MV_VERSION}"
+PACKAGE_NO_CDT=$(echo ${PACKAGE} | sed 's/.cdt$//')
+# For non eosio, prefix the direction with package name.
+if [ "$PACKAGE_NO_CDT" != "eosio" ]; then
+	MV_DIRECTORY="${PACKAGE_NO_CDT}-${MV_VERSION}"
+else
+	MV_DIRECTORY="${MV_VERSION}"
 fi
 
 comment "Update package name in control file (${PACKAGE}-${MV_VERSION})"
@@ -35,18 +38,18 @@ fi
 
 local VERSION_DIR=$(ls ${TMP_DIR}/usr/opt/eosio.cdt)
 
-comment "Rename ${TMP_DIR}/usr/opt/eosio.cdt/${VERSION_DIR} -> ${TMP_DIR}/usr/opt/eosio.cdt/${MV_VERSION}"
-mv "${TMP_DIR}/usr/opt/eosio.cdt/${VERSION_DIR}" "${TMP_DIR}/usr/opt/eosio.cdt/${MV_VERSION}"
+comment "Rename ${TMP_DIR}/usr/opt/eosio.cdt/${VERSION_DIR} -> ${TMP_DIR}/usr/opt/eosio.cdt/${MV_DIRECTORY}"
+mv "${TMP_DIR}/usr/opt/eosio.cdt/${VERSION_DIR}" "${TMP_DIR}/usr/opt/eosio.cdt/${MV_DIRECTORY}"
 
 # Need to update cmake config with the new path.
-CMAKE_CONFIG="${TMP_DIR}/usr/opt/eosio.cdt/${MV_VERSION}/lib/cmake/eosio.cdt/eosio.cdt-config.cmake"
+CMAKE_CONFIG="${TMP_DIR}/usr/opt/eosio.cdt/${MV_DIRECTORY}/lib/cmake/eosio.cdt/eosio.cdt-config.cmake"
 if [ -f "${CMAKE_CONFIG}" ]; then
 	comment "Patch cmake config (${CMAKE_CONFIG}) with correct path"
-	sed -i -E "s~(set\(EOSIO_CDT_ROOT)\s*\"(.+)\"~\1 \"/usr/opt/eosio.cdt/${MV_VERSION}\"~" ${CMAKE_CONFIG}
+	sed -i -E "s~(set\(EOSIO_CDT_ROOT)\s*\"(.+)\"~\1 \"/usr/opt/eosio.cdt/${MV_DIRECTORY}\"~" ${CMAKE_CONFIG}
 fi
 
 comment "Create Linkfile"
-pushd "${TMP_DIR}/usr/opt/eosio.cdt/${MV_VERSION}" &> /dev/null
+pushd "${TMP_DIR}/usr/opt/eosio.cdt/${MV_DIRECTORY}" &> /dev/null
 find bin/ -name "eosio-*" >> LINK
 find lib/cmake/ -type f >> LINK
 popd &> /dev/null
