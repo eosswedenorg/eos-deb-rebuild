@@ -164,7 +164,7 @@ program() {
 	fi
 
 	comment "Build package"
-	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z\.]+)_([^-]+)-([^-_]+)/${PACKAGE}_${VERSION}/")
+	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z\.]+)[-_]([^-]+)-([^-_]+)/${PACKAGE}_${VERSION}/")
 	OUTPUT_FILE=$(deb_filename "${OUTPUT_FILE}")
 	fakeroot dpkg-deb -b ${TMP_DIR} ${OUTPUT_FILE}
 	rm -fr ${TMP_DIR}
