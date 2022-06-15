@@ -132,7 +132,9 @@ program() {
 		while read -r l; do
 			K=$(cut -d':' -f1 <<<$l)
 			V=$(cut -d':' -f2- <<<$l | xargs)
-			array[$K]="$V"
+            if [ -n "$K" ]; then
+                array[$K]="$V"
+            fi
 		done <<< $(dpkg-deb -f $INPUT_FILE | cat - "${INFO_DIR}/$PKG_FLAVOR")
 
 		for k in $(cat $INCLUDE_DIR/control_order); do
