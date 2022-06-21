@@ -5,9 +5,11 @@
 #  Correct .deb filenames
 
 # arg1: filename
+# arg2: distro (optional)
+# arg3: version (optional)
 function deb_filename() {
-	local version=$(lsb_release -rs)
-	local distro=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
+    local distro=${2:-$(lsb_release -is | tr '[:upper:]' '[:lower:]')}
+	local version=${3:-$(lsb_release -rs)}
 
 	echo $1 | sed -E "s/(-${distro})?(-${version})?_([a-z0-9]+)\.deb\$/-${distro}-${version}_\3.deb/"
 }
