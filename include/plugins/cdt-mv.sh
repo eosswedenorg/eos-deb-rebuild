@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  Copyright (C) 2019-2020 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#  Copyright (C) 2019-2022 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
 #
 #  CDT Multiversion specific commands
 
