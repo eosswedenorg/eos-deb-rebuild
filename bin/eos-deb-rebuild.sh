@@ -149,6 +149,7 @@ program() {
 	# Get package name and version
 	PACKAGE=$(awk -F ':' '/Package/{print $2}' ${CONTROL_FILE} | tr -d '[:space:]')
 	VERSION=$(awk -F ':' '/Version/{print $2}' ${CONTROL_FILE} | tr -d '[:space:]')
+    ARCH=$(awk -F ':' '/Architecture/{print $2}' ${CONTROL_FILE} | tr -d '[:space:]')
 
 	# Update version if package version is defined.
 	if [ ! -z "$PKG_VERSION" ]; then
@@ -164,8 +165,7 @@ program() {
 	fi
 
 	comment "Build package"
-	OUTPUT_FILE=$(echo $INPUT_FILE | sed -E "s/^([a-z\.]+)[-_]([^-]+)-([^-_]+)/${PACKAGE}_${VERSION}/")
-	OUTPUT_FILE=$(deb_filename "${OUTPUT_FILE}")
+    OUTPUT_FILE=$(deb_filename "$PACKAGE" "$VERSION" "$ARCH")
 	fakeroot dpkg-deb -b ${TMP_DIR} ${OUTPUT_FILE}
 	rm -fr ${TMP_DIR}
 
