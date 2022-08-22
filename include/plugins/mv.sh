@@ -8,7 +8,7 @@
 MV_VERSION=$(echo $VERSION | sed -E 's/\s|\.|\-[0-9]+$//g')
 
 comment "Update package name in control file (${PACKAGE}-${MV_VERSION})"
-sed -i -E "s/^(Package:)\s([a-z_-]+)$/\1 \2-${MV_VERSION}/" ${CONTROL_FILE}
+sed -i -E "s/^(Package:)\s([a-z\._-]+)$/\1 \2-${MV_VERSION}/" ${CONTROL_FILE}
 
 # Remove conflicts
 comment "Remove conflicts field in control file"
