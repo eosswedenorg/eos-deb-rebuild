@@ -23,7 +23,7 @@ Priority: optional
 Architecture: all
 Homepage: https://github.com/eosswedenorg/eos-deb-rebuild
 Maintainer: Henrik Hautakoski <henrik@eossweden.org>
-Depends: eos-deb-rebuild-info (>= 1.0.2)
+Depends: eos-deb-rebuild-info (>= 1.0.3)
 Description: ${PACKAGE_DESCRIPTION}" &> ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/control
 
 cat ${BASE_DIR}/${PACKAGE_TMPDIR}/DEBIAN/control
