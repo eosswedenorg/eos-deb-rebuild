@@ -28,7 +28,7 @@ $(PREFIX)/bin/% : $(INSTALLDIR)/bin/%
 
 deb:
 	export PACKAGE_NAME="$(NAME)" \
-	export PACKAGE_VERSION="0.3.0" \
+	export PACKAGE_VERSION="0.3.1" \
 	export PACKAGE_PREFIX=$(PREFIX:/%=%) \
 	export PACKAGE_PROGRAM=$(PROGRAMS) \
 	export PACKAGE_FILES="$(FILES)" \
