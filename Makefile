@@ -26,13 +26,4 @@ $(INSTALLDIR)/bin/% : bin/%.sh
 $(PREFIX)/bin/% : $(INSTALLDIR)/bin/%
 	mkdir -p $(dir $@) && ln -sf $(subst $(PREFIX)/,../,$<) $@
 
-deb:
-	export PACKAGE_NAME="$(NAME)" \
-	export PACKAGE_VERSION="0.3.1" \
-	export PACKAGE_PREFIX=$(PREFIX:/%=%) \
-	export PACKAGE_PROGRAM=$(PROGRAMS) \
-	export PACKAGE_FILES="$(FILES)" \
-	export PACKAGE_INSTALLDIR=$(INSTALLDIR:/%=%) \
-	&& ./scripts/build_deb.sh
-
-.PHONY: install uninstall deb
+.PHONY: install uninstall
