@@ -1,31 +1,36 @@
 
-NAME 			= eos-deb-rebuild
-DESTDIR			= /
-PREFIX 			= usr
-INSTALLDIR 		= $(DESTDIR)/$(PREFIX)
-INSTALLDIR_OPT  = $(INSTALLDIR)/opt/$(NAME)
-PROGRAMS 		= $(patsubst %.sh,%,$(shell find bin -type f))
-FILES	    	= README.md LICENSE $(shell find include -type f)
-EXTRAFILES  	= $(addprefix $(INSTALLDIR_OPT)/,$(FILES))
-BINFILES  		= $(addprefix $(INSTALLDIR_OPT)/,$(PROGRAMS))
-SYMLINKS  		= $(addprefix $(INSTALLDIR)/,$(PROGRAMS))
+NAME 		= eos-deb-rebuild
+DESTDIR		= /
+PREFIX 		= usr
+INSTALLDIR 	= $(DESTDIR)/$(PREFIX)
+SHAREDIR	= $(INSTALLDIR)/share/$(NAME)
+DOCSDIR		= $(INSTALLDIR)/share/doc/$(NAME)
 
-install : $(BINFILES) $(EXTRAFILES) $(SYMLINKS)
+DOCFILES		= $(addprefix $(DOCSDIR)/,README.md LICENSE)
+INCLUDEFILES  	= $(addprefix $(SHAREDIR)/,$(shell find include -type f))
+BINFILES  		= $(SHAREDIR)/eos-deb-rebuild
+SYMLINKS  		= $(INSTALLDIR)/bin/eos-deb-rebuild
+
+install : $(BINFILES) $(DOCFILES) $(INCLUDEFILES) $(SYMLINKS)
 
 uninstall :
 	rm $(SYMLINKS)
 	rm -r $(INSTALLDIR)
 
-# Files
-$(INSTALLDIR_OPT)/% : %
-	mkdir -p $(dir $@) && cp $< $@
+# Install - Includes
+$(SHAREDIR)/% : %
+	install -m 644 -D $< $@
 
-# Binaries
-$(INSTALLDIR_OPT)/bin/% : bin/%.sh
-	mkdir -p $(dir $@) && cp $< $@ && chmod +x $@
+# Install - Documents
+$(DOCSDIR)/% : %
+	install -m 644 -D $< $@
 
-# Symlinks to binaries
-$(INSTALLDIR)/bin/% : $(INSTALLDIR_OPT)/bin/%
+# Install - Binaries
+$(SHAREDIR)/% : bin/%.sh
+	install -m 755 -D $< $@
+
+# Install - Symlinks
+$(INSTALLDIR)/bin/% : $(SHAREDIR)/%
 	mkdir -p $(dir $@) && ln -sf $(subst $(INSTALLDIR)/,../,$<) $@
 
 .PHONY: install uninstall
