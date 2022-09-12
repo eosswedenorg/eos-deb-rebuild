@@ -1,0 +1,17 @@
+Source: eos-deb-rebuild
+Section: devel
+Build-Depends:
+ debhelper (>= 11), git
+Standards-Version: 4.5.0
+Vcs-Git: https://github.com/eosswedenorg/eos-deb-rebuild.git
+Vcs-Browser: https://github.com/eosswedenorg/eos-deb-rebuild
+Priority: optional
+Homepage: https://github.com/eosswedenorg/eos-deb-rebuild
+Maintainer: Henrik Hautakoski <henrik@eossweden.org>
+
+Package: eos-deb-rebuild
+Section: devel
+Priority: optional
+Architecture: all
+Depends: coreutils, findutils, grep, awk, sed, lsb-release, dpkg, eos-deb-rebuild-info (>= 1.0.3)
+Description: Script to rebuild eosio debian packages

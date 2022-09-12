@@ -1,0 +1,5 @@
+eos-deb-rebuild (0.3.2) all; urgency=medium
+
+  * Use dpkg-buildpackage to build debian packages.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 12 Sep 2022 16:14:09 +0200
