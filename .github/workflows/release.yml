@@ -1,0 +1,33 @@
+name: Package
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  build-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build deb package
+        uses: jtdor/build-deb-action@v1
+        with:
+          buildpackage-opts: -b -us -uc
+
+      - name: Get Name of Artifact
+        id: artifacts
+        run: |
+          FILE=$(ls debian/artifacts/*.deb | head -n 1)
+          echo "DEB_NAME=$(basename $FILE)" >> $GITHUB_ENV
+          echo "DEB_FILENAME=${FILE}" >> $GITHUB_ENV
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_name: ${{ env.DEB_NAME }}
+          asset_path: ${{ env.DEB_FILENAME }}
+          asset_content_type: application/x-deb
