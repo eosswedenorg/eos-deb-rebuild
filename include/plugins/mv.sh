@@ -27,8 +27,19 @@ sed -i -E "s/^(Package:)\s([a-z\._-]+)$/\1 \2-${MV_VERSION}/" ${CONTROL_FILE}
 comment "Remove conflicts field in control file"
 sed -i "/^Conflicts:/d" ${CONTROL_FILE}
 
+# new packages puts binaries directly in /usr/bin
+if [ -d ${TMP_DIR}/usr/bin ] && [ -d ${TMP_DIR}/usr/share/licenses/${PACKAGE} ]; then
+
+    local NEW_PATH=usr/opt/${PACKAGE}-${MV_VERSION}
+
+    rename ${TMP_DIR} usr/bin ${NEW_PATH}/bin
+    rename ${TMP_DIR} usr/share/licenses/${PACKAGE} ${NEW_PATH}/licenses
+
+    comment "Remove usr/share"
+    rm -rf ${TMP_DIR}/usr/share 2> /dev/null
+
 # Special case for mandel packages.
-if [ -d ${TMP_DIR}/usr/local/bin ]; then
+elif [ -d ${TMP_DIR}/usr/local/bin ]; then
     ORIG_PATH=usr/local
 
     local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_PATH}" 2> /dev/null | head -1)
