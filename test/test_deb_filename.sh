@@ -18,3 +18,6 @@ assert "$(deb_filename "eosio" "2.0.7-sec-patch2" "amd64" "ubuntu" "18.04")" "eo
 assert "$(deb_filename "mandel" "3.1.0wax01-1" "x86_64" "ubuntu" "18.04")" "mandel_3.1.0wax01-1-ubuntu-18.04_x86_64.deb"
 assert "$(deb_filename "mandel-3.1.0wax01-rc1" "3.1.0wax01-rc1" "x86_64" "ubuntu" "18.04")" "mandel-3.1.0wax01-rc1_3.1.0wax01-rc1-ubuntu-18.04_x86_64.deb"
 assert "$(deb_filename "wax-mandel-310wax01-rc1" "3.1.0wax01-rc1" "x86_64" "ubuntu" "18.04")" "wax-mandel-310wax01-rc1_3.1.0wax01-rc1-ubuntu-18.04_x86_64.deb"
+
+assert "$(deb_filename "leap" "4.0.4" "amd64" "ubuntu" "22.04")" "leap_4.0.4-ubuntu-22.04_amd64.deb"
+assert "$(deb_filename "wax-leap-314-wax01" "3.1.4-wax01" "amd64" "ubuntu" "18.04")" "wax-leap-314-wax01_3.1.4-wax01-ubuntu-18.04_amd64.deb"
