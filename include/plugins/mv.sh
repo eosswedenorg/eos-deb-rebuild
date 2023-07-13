@@ -74,7 +74,7 @@ else :
     else :
     	local NEW_OPT_PATH=usr/opt/${PACKAGE}
         rename ${TMP_DIR} ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv
-    	if [ -z "$(ls -A ${ORIG_OPT_PATH} 2> /dev/null)" ]; then
+    	if [ -d "${ORIG_OPT_PATH}" ] && [ -z "$(ls -A ${ORIG_OPT_PATH} 2> /dev/null)" ]; then
     		comment "${ORIG_OPT_PATH} is empty, removing."
     		rm -rf ${ORIG_OPT_PATH}
     	fi
