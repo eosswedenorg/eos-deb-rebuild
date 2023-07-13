@@ -36,7 +36,7 @@ usage() {
 	echo -e "  Flavors are:" $(ls ${INFO_DIR} 2> /dev/null | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $PLUGINS_DIR | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
 	echo    ""
-	echo -e "  Example: \e[33m'bos:mv'\e[0m - builds bos multiversion package"
+	echo -e "  Example: \e[33m'wax:mv'\e[0m - builds wax multiversion package"
 	echo -e "           \e[33m'wax'\e[0m - builds standard wax package"
 	echo -e "           \e[33m'mv'\e[0m - builds eos multiversion package"
 
