@@ -4,6 +4,19 @@
 #
 #  Multiversion specific commands.
 
+function rename() {
+    BASE=$1
+    OLD=$2
+    NEW=$3
+
+    comment "Rename ${OLD} to ${NEW}"
+
+    pushd ${BASE} > /dev/null
+	mkdir -p $(dirname ${NEW})
+	mv ${OLD} ${NEW} 2> /dev/null
+	popd > /dev/null
+}
+
 # Fetch and format mv version (remove "." and skip last "-<number>" e.g. package version)
 MV_VERSION=$(echo $VERSION | sed -E 's/\s|\.|\-[0-9]+$//g')
 
@@ -20,11 +33,8 @@ if [ -d ${TMP_DIR}/usr/local/bin ]; then
 
     local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_PATH}" 2> /dev/null | head -1)
 	local NEW_PATH=usr/opt/${PACKAGE}
-	comment "Rename ${ORIG_PATH} to ${NEW_PATH}/${MV_VERSION}-mv"
-	pushd ${TMP_DIR} > /dev/null
-	mkdir -p "${NEW_PATH}"
-	mv ${ORIG_PATH} ${NEW_PATH}/${MV_VERSION}-mv 2> /dev/null
-	popd > /dev/null
+
+    rename ${TMP_DIR} ${ORIG_PATH} ${NEW_PATH}/${MV_VERSION}-mv
 
 # All other types of packages :)
 else :
@@ -52,15 +62,11 @@ else :
     	warning "Could not find anything in '${ORIG_OPT_PATH}'."
     else :
     	local NEW_OPT_PATH=usr/opt/${PACKAGE}
-    	comment "Rename ${ORIG_OPT_PATH}/${ORIG_VERDIR} to ${NEW_OPT_PATH}/${MV_VERSION}-mv"
-    	pushd ${TMP_DIR} > /dev/null
-    	mkdir -p "${NEW_OPT_PATH}"
-    	mv ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv 2> /dev/null
+        rename ${TMP_DIR} ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv
     	if [ -z "$(ls -A ${ORIG_OPT_PATH})" ]; then
     		comment "${ORIG_OPT_PATH} is empty, removing."
     		rm -rf ${ORIG_OPT_PATH}
     	fi
-    	popd > /dev/null
     fi
 
 fi
