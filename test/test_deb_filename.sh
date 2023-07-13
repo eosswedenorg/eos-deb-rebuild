@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  Copyright (C) 2022 Henrik Hautakoski <henrik@eossweden.org>. All Rights Reserved.
+#  Copyright (c) 2019-2023 EOS Sw/eden
 #
 
 SELF="$(readlink -f "${BASH_SOURCE[0]}")"
