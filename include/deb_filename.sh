@@ -14,8 +14,16 @@ function deb_filename() {
     local name=$1
     local pkg_ver=$2
     local pkg_arch=$3
-    local distro=${4:-$(lsb_release -is | tr '[:upper:]' '[:lower:]')}
-	local version=${5:-$(lsb_release -rs)}
+    local distro=${4:-$(lsb_release -is 2> /dev/null | tr '[:upper:]' '[:lower:]')}
+	local version=${5:-$(lsb_release -rs 2> /dev/null)}
 
-    echo "${name}_${pkg_ver}-${distro}-${version}_${pkg_arch}.deb"
+    if [ -z "$distro" ]; then
+        distro="ubuntu"
+    fi
+
+    if [ ! -z "$version" ]; then
+        distro="${distro}-${version}"
+    fi
+
+    echo "${name}_${pkg_ver}-${distro}_${pkg_arch}.deb"
 }
