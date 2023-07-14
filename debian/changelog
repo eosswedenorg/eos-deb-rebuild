@@ -1,3 +1,12 @@
+eos-deb-rebuild (0.3.3) all; urgency=medium
+
+  * [33676f67] include/plugins/mv.sh: remove "mv" suffix from directory name.
+  * [d8cae481] Makefile: plugins needs to be executable.
+  * [7aa81e31] Makefile: install eos-deb-rebuild script in $SHAREDIR/bin
+  * [2b3e0694] include/plugins/mv.sh: fix wrong path.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 14 Jul 2023 18:59:12 +0200
+
 eos-deb-rebuild (0.3.2) all; urgency=medium
 
   * [964bfc3b] Makefile: remove deb target.
