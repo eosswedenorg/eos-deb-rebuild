@@ -1,5 +1,23 @@
 eos-deb-rebuild (0.3.2) all; urgency=medium
 
-  * Use dpkg-buildpackage to build debian packages.
+  * [964bfc3b] Makefile: remove deb target.
+  * [5ea42c9a] Remove scritps directory.
+  * [37c5eb7b] Makefile: Add support for DESTDIR variable so that files can be installed to another directory than root.
+  * [523eea3d] Makefile: Cleanup install directories to confirm more to linux "Filesystem Hierarchy Standard"
+  * [e265f31c] Adding debian package scripts.
+  * [8ef76eef] Adding .github/workflows/release.yml
+  * [c0231cd8] Update copyright year
+  * [86a8a0a1] include/deb_filename.sh: add support for when lsb_release fails.
+  * [b7ff5434] test/test_deb_filename.sh: adding more tests.
+  * [d947e9df] include/guess_pkg_flavor.sh: default to "leap" instead of "eos"
+  * [f921c925] bin/eos-deb-rebuild.sh: silently ignore ls errors.
+  * [40f87990] bin/eos-deb-rebuild.sh: Update example with more a modern flavor.
+  * [537ff132] include/plugins/mv.sh: Adding rename function
+  * [82d6a330] include/plugins/mv.sh: Silence ls errors
+  * [a81e2093] include/plugins/mv.sh: Add support for "new" packages.
+  * [7a3c1733] include/plugins/mv.sh: test if directory exist before trying to remove.
+  * [6ce906dc] Makefile: indentation fix.
+  * [baa45419] README.md: minor fix.
+  * [47fadd42] Fix 4 space indentation.
 
- -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 12 Sep 2022 16:14:09 +0200
+ -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 14 Jul 2023 15:33:07 +0200
