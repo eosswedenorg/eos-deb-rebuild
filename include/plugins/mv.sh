@@ -30,7 +30,7 @@ sed -i "/^Conflicts:/d" ${CONTROL_FILE}
 # new packages puts binaries directly in /usr/bin
 if [ -d ${TMP_DIR}/usr/bin ] && [ -d ${TMP_DIR}/usr/share/licenses/${PACKAGE} ]; then
 
-    local NEW_PATH=usr/opt/${PACKAGE}-${MV_VERSION}
+    local NEW_PATH=usr/opt/${PACKAGE}/${MV_VERSION}
 
     rename ${TMP_DIR} usr/bin ${NEW_PATH}/bin
     rename ${TMP_DIR} usr/share/licenses/${PACKAGE} ${NEW_PATH}/licenses
