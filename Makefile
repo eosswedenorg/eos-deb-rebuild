@@ -8,7 +8,7 @@ DOCSDIR		= $(INSTALLDIR)/share/doc/$(NAME)
 
 DOCFILES	= $(addprefix $(DOCSDIR)/,README.md LICENSE)
 INCLUDEFILES 	= $(addprefix $(SHAREDIR)/,$(shell find include -type f))
-BINFILES  	= $(SHAREDIR)/eos-deb-rebuild
+BINFILES  	= $(SHAREDIR)/bin/eos-deb-rebuild
 SYMLINKS  	= $(INSTALLDIR)/bin/eos-deb-rebuild
 
 install : $(BINFILES) $(DOCFILES) $(INCLUDEFILES) $(SYMLINKS)
@@ -30,11 +30,11 @@ $(DOCSDIR)/% : %
 	install -m 644 -D $< $@
 
 # Install - Binaries
-$(SHAREDIR)/% : bin/%.sh
+$(SHAREDIR)/bin/% : bin/%.sh
 	install -m 755 -D $< $@
 
 # Install - Symlinks
-$(INSTALLDIR)/bin/% : $(SHAREDIR)/%
+$(INSTALLDIR)/bin/% : $(SHAREDIR)/bin/%
 	mkdir -p $(dir $@) && ln -sf $(subst $(INSTALLDIR)/,../,$<) $@
 
 .PHONY: install uninstall
