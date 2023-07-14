@@ -7,15 +7,15 @@
 # arg1: filename
 function guess_pkg_flavor() {
 
-	flavor=$(dpkg -I "${1}" | grep Package | sed -E 's/^\s*Package:\s*([a-z\.]+).*/\1/')
+    flavor=$(dpkg -I "${1}" | grep Package | sed -E 's/^\s*Package:\s*([a-z\.]+).*/\1/')
 
     if [ -z "$flavor" ]; then
         flavor="leap"
-	elif [ "$flavor" == "eosio" ]; then
-		flavor="eos"
-	elif [ "$flavor" == "eosio.cdt" ]; then
-		flavor="eos.cdt"
-	fi
+    elif [ "$flavor" == "eosio" ]; then
+        flavor="eos"
+    elif [ "$flavor" == "eosio.cdt" ]; then
+        flavor="eos.cdt"
+    fi
 
-	echo $flavor
+    echo $flavor
 }

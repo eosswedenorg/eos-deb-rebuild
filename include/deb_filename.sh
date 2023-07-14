@@ -15,7 +15,7 @@ function deb_filename() {
     local pkg_ver=$2
     local pkg_arch=$3
     local distro=${4:-$(lsb_release -is 2> /dev/null | tr '[:upper:]' '[:lower:]')}
-	local version=${5:-$(lsb_release -rs 2> /dev/null)}
+    local version=${5:-$(lsb_release -rs 2> /dev/null)}
 
     if [ -z "$distro" ]; then
         distro="ubuntu"

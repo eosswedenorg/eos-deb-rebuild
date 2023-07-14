@@ -12,9 +12,9 @@ function rename() {
     comment "Rename ${OLD} to ${NEW}"
 
     pushd ${BASE} > /dev/null
-	mkdir -p $(dirname ${NEW})
-	mv ${OLD} ${NEW} 2> /dev/null
-	popd > /dev/null
+    mkdir -p $(dirname ${NEW})
+    mv ${OLD} ${NEW} 2> /dev/null
+    popd > /dev/null
 }
 
 # Fetch and format mv version (remove "." and skip last "-<number>" e.g. package version)
@@ -43,7 +43,7 @@ elif [ -d ${TMP_DIR}/usr/local/bin ]; then
     ORIG_PATH=usr/local
 
     local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_PATH}" 2> /dev/null | head -1)
-	local NEW_PATH=usr/opt/${PACKAGE}
+    local NEW_PATH=usr/opt/${PACKAGE}
 
     rename ${TMP_DIR} ${ORIG_PATH} ${NEW_PATH}/${MV_VERSION}-mv
 
@@ -54,30 +54,30 @@ else :
     # original deb packages install symlinks here and will therefor produce conflicts.
     comment "Remove usr/bin"
     if [ -d ${TMP_DIR}/usr/bin ]; then
-    	rm -rf ${TMP_DIR}/usr/bin 2> /dev/null
+        rm -rf ${TMP_DIR}/usr/bin 2> /dev/null
     else :
-    	warning "'usr/bin' did not exist."
+        warning "'usr/bin' did not exist."
     fi
 
     # Find package directory.
     if [ -d ${TMP_DIR}/usr/opt/${PACKAGE} ]; then
-    	ORIG_OPT_PATH=usr/opt/${PACKAGE}
+        ORIG_OPT_PATH=usr/opt/${PACKAGE}
     else :
-    	ORIG_OPT_PATH=usr/opt/eosio
+        ORIG_OPT_PATH=usr/opt/eosio
     fi
 
     # rename directory in usr/opt/ to something unique (again, will produce file conflicts otherwise).
     local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_OPT_PATH}" 2> /dev/null | head -1)
 
     if [ -z ${ORIG_VERDIR} ]; then
-    	warning "Could not find anything in '${ORIG_OPT_PATH}'."
+        warning "Could not find anything in '${ORIG_OPT_PATH}'."
     else :
-    	local NEW_OPT_PATH=usr/opt/${PACKAGE}
+        local NEW_OPT_PATH=usr/opt/${PACKAGE}
         rename ${TMP_DIR} ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv
-    	if [ -d "${ORIG_OPT_PATH}" ] && [ -z "$(ls -A ${ORIG_OPT_PATH} 2> /dev/null)" ]; then
-    		comment "${ORIG_OPT_PATH} is empty, removing."
-    		rm -rf ${ORIG_OPT_PATH}
-    	fi
+        if [ -d "${ORIG_OPT_PATH}" ] && [ -z "$(ls -A ${ORIG_OPT_PATH} 2> /dev/null)" ]; then
+            comment "${ORIG_OPT_PATH} is empty, removing."
+            rm -rf ${ORIG_OPT_PATH}
+        fi
     fi
 
 fi
