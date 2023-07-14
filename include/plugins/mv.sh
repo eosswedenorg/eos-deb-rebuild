@@ -45,7 +45,7 @@ elif [ -d ${TMP_DIR}/usr/local/bin ]; then
     local ORIG_VERDIR=$(ls "${TMP_DIR}/${ORIG_PATH}" 2> /dev/null | head -1)
     local NEW_PATH=usr/opt/${PACKAGE}
 
-    rename ${TMP_DIR} ${ORIG_PATH} ${NEW_PATH}/${MV_VERSION}-mv
+    rename ${TMP_DIR} ${ORIG_PATH} ${NEW_PATH}/${MV_VERSION}
 
 # All other types of packages :)
 else :
@@ -73,7 +73,7 @@ else :
         warning "Could not find anything in '${ORIG_OPT_PATH}'."
     else :
         local NEW_OPT_PATH=usr/opt/${PACKAGE}
-        rename ${TMP_DIR} ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}-mv
+        rename ${TMP_DIR} ${ORIG_OPT_PATH}/${ORIG_VERDIR} ${NEW_OPT_PATH}/${MV_VERSION}
         if [ -d "${ORIG_OPT_PATH}" ] && [ -z "$(ls -A ${ORIG_OPT_PATH} 2> /dev/null)" ]; then
             comment "${ORIG_OPT_PATH} is empty, removing."
             rm -rf ${ORIG_OPT_PATH}
