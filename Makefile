@@ -6,10 +6,10 @@ INSTALLDIR 	= $(DESTDIR)/$(PREFIX)
 SHAREDIR	= $(INSTALLDIR)/share/$(NAME)
 DOCSDIR		= $(INSTALLDIR)/share/doc/$(NAME)
 
-DOCFILES		= $(addprefix $(DOCSDIR)/,README.md LICENSE)
-INCLUDEFILES  	= $(addprefix $(SHAREDIR)/,$(shell find include -type f))
-BINFILES  		= $(SHAREDIR)/eos-deb-rebuild
-SYMLINKS  		= $(INSTALLDIR)/bin/eos-deb-rebuild
+DOCFILES	= $(addprefix $(DOCSDIR)/,README.md LICENSE)
+INCLUDEFILES 	= $(addprefix $(SHAREDIR)/,$(shell find include -type f))
+BINFILES  	= $(SHAREDIR)/eos-deb-rebuild
+SYMLINKS  	= $(INSTALLDIR)/bin/eos-deb-rebuild
 
 install : $(BINFILES) $(DOCFILES) $(INCLUDEFILES) $(SYMLINKS)
 
