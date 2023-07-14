@@ -17,6 +17,10 @@ uninstall :
 	rm $(SYMLINKS)
 	rm -r $(INSTALLDIR)
 
+# Install - Plugins
+$(SHAREDIR)/include/plugins/% : include/plugins/%
+	install -m 755 -D $< $@
+
 # Install - Includes
 $(SHAREDIR)/% : %
 	install -m 644 -D $< $@
