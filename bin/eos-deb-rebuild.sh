@@ -4,7 +4,7 @@
 
 PROGRAM="${0##*/}"
 SELF="$(readlink -f "${BASH_SOURCE[0]}")"
-INFO_DIR="/usr/local/share/eos-deb-rebuild-info"
+INFO_DIR="/usr/share/eos-deb-rebuild-info"
 TMP_DIR="tmp"
 INCLUDE_DIR="$(realpath "$(dirname $SELF)/../")/include"
 PLUGINS_DIR="$INCLUDE_DIR/plugins"
