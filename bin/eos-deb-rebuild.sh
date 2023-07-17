@@ -33,7 +33,7 @@ usage() {
     echo -e "  If \e[33m<flavor>\e[0m is omitted its taken from the deb file's \`Package\` field. Defaults to \`eos\` if that fails."
     echo -e "  Default \e[33m<type>\e[0m is \`${PKG_TYPE}\`"
     echo    ""
-    echo -e "  Flavors are:" $(ls ${INFO_DIR} 2> /dev/null | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
+    echo -e "  Flavors are:" $(ls ${INFO_DIR} 2> /dev/null | grep -Ev '\.md$' | sed 's/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
     echo -e "  Package types are: \e[34mstandard\e[0m," $(ls $PLUGINS_DIR | sed 's/.sh$//;s/.*/\\e\[34m&\\e\[0m/;$!s/$/, /')
     echo    ""
     echo -e "  Example: \e[33m'wax:mv'\e[0m - builds wax multiversion package"
