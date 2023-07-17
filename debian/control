@@ -13,5 +13,5 @@ Package: eos-deb-rebuild
 Section: devel
 Priority: optional
 Architecture: all
-Depends: coreutils, findutils, grep, awk, sed, lsb-release, dpkg, eos-deb-rebuild-info (>= 1.0.3)
+Depends: coreutils, findutils, grep, awk, sed, lsb-release, dpkg, eos-deb-rebuild-info (>= 1.0.4)
 Description: Script to rebuild eosio debian packages
