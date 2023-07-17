@@ -1,3 +1,12 @@
+eos-deb-rebuild (0.3.4) all; urgency=medium
+
+  * [2fec1b96] bin/eos-deb-rebuild.sh: Fix flavor listing to exclude markdown files.
+  * [3ff2c02b] bin/eos-deb-rebuild.sh: Update info dir
+  * [04701abf] debian/control: Require eos-deb-rebuild-info >= 1.0.4
+  * [7a5ff7d0] debian/changelog: fix timestamp for 0.3.2 that got overwritten.
+
+ -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 17 Jul 2023 09:23:17 +0200
+
 eos-deb-rebuild (0.3.3) all; urgency=medium
 
   * [33676f67] include/plugins/mv.sh: remove "mv" suffix from directory name.
