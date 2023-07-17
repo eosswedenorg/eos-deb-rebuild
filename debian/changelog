@@ -29,4 +29,4 @@ eos-deb-rebuild (0.3.2) all; urgency=medium
   * [baa45419] README.md: minor fix.
   * [47fadd42] Fix 4 space indentation.
 
- -- Henrik Hautakoski <henrik@eossweden.org>  Fri, 14 Jul 2023 15:33:07 +0200
+ -- Henrik Hautakoski <henrik@eossweden.org>  Mon, 12 Sep 2022 16:14:09 +0200
