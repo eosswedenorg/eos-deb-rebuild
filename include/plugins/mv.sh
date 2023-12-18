@@ -28,12 +28,17 @@ comment "Remove conflicts field in control file"
 sed -i "/^Conflicts:/d" ${CONTROL_FILE}
 
 # new packages puts binaries directly in /usr/bin
-if [ -d ${TMP_DIR}/usr/bin ] && [ -d ${TMP_DIR}/usr/share/licenses/${PACKAGE} ]; then
+# 'wax-leap' packages has their license under 'leap' ADJUSTED_PACKAGE="${PACKAGE}"
+if [[ "${ADJUSTED_PACKAGE}" == "wax-leap" ]]; then
+  ADJUSTED_PACKAGE="leap"
+fi
+if [ -d ${TMP_DIR}/usr/bin ] && [ -d ${TMP_DIR}/usr/share/licenses/${ADJUSTED_PACKAGE} ]; then
 
     local NEW_PATH=usr/opt/${PACKAGE}/${MV_VERSION}
 
     rename ${TMP_DIR} usr/bin ${NEW_PATH}/bin
-    rename ${TMP_DIR} usr/share/licenses/${PACKAGE} ${NEW_PATH}/licenses
+    rename ${TMP_DIR} usr/share/bash-completion ${NEW_PATH}/share/bash-completion
+    rename ${TMP_DIR} usr/share/licenses/${ADJUSTED_PACKAGE} ${NEW_PATH}/share/licenses
 
     comment "Remove usr/share"
     rm -rf ${TMP_DIR}/usr/share 2> /dev/null
